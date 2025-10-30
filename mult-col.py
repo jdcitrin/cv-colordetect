@@ -3,11 +3,13 @@ from util import get_limits
 from PIL import Image
 import numpy as np
 
+kernel = np.ones((9,9),np.uint8) #kernel for smoothing mask
+#sees wheteher to keep or discard pixel in mask based on neighbors
 
 #creates an array of colors to detect
 colors = {
     "green": [0, 255, 0],
-    "blue": [255, 0, 0],
+    #"blue": [255, 0, 0],
 }
 cap = cv2.VideoCapture(0) #choose which webcam to use
 
@@ -25,6 +27,9 @@ while True:
 
         #creates mask only showing pixels within the color limits
         mask = cv2.inRange(hsvImage, lowerlimit, upperlimit) #creates mask only showing pixels within the color limits
+
+        mask = cv2.erode(mask, kernel, iterations = 2) #erodes to remove noise
+        mask = cv2.dilate(mask, kernel, iterations = 2) #dilates to restore size after erosion
 
         maskbox = Image.fromarray(mask) #creates pillow image from mask array, white if true black if not
         box = maskbox.getbbox() #creates bounding box around white
