@@ -9,7 +9,7 @@ kernel = np.ones((9,9),np.uint8) #kernel for smoothing mask
 #creates an array of colors to detect
 colors = {
     "green": [0, 255, 0],
-    #"blue": [255, 0, 0],
+    "blue": [255, 0, 0],
 }
 cap = cv2.VideoCapture(0) #choose which webcam to use
 
