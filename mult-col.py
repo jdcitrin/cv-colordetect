@@ -34,6 +34,22 @@ while True:
             #creates a new frame for each color detected, cycling through while process is active.
             frame = cv2.rectangle(frame, (x1,y1), (x2,y2), bgr_color, 5) #draws rectangle on original frame
 
+            #calculate position for text label
+            text_x = x1
+            text_y = y1 - 10 #above bbox
+
+            #adds text label above the bounding box
+            frame = cv2.putText(
+                img=frame,                       # img to draw on
+                text=color_name.upper(),         # text
+                org=(text_x, text_y),            #top left
+                fontFace=cv2.FONT_HERSHEY_SIMPLEX,  
+                fontScale= 1.5,            
+                color=bgr_color,                #matches bbox color
+                thickness=3     
+            )
+
+
 
 
     #shows the frame with the detected colors
